@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 #include <unistd.h>
 //#include <random.h> //apparently this never existed :(
 
@@ -21,9 +22,12 @@ int main()
       return sleeptime;
     }
   else{
-    int * staytus;
-    printf("my favorite child: %d, was asleep for %d seconds\n", 123, wait());
-    //printf("my second child: %d", waitpid(getpid+2, staytus,0));
-   }
+    int staytus;
+    int fave = wait(&staytus);
+    int sec = WEXITSTATUS(staytus);
+    //printf("but w h ERE's the SeG fAUlt?!??\n");
+    printf("my favorite child: %d, was asleep for %d seconds\n", fave, sec);
+    printf("I suppose my living child can fend for themself; I'm done.\n");
+  }
   return 0;
 }
